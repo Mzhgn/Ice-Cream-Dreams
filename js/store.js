@@ -48,3 +48,21 @@ let allProducts = [
     img: "images/vanilla.png",
   },
 ];
+
+let $ = document;
+const shopItemContainer = $.querySelector(".shop-item");
+
+allProducts.forEach((product) => {
+  let shopItemEl = `<div class="shop-item">
+          <span class="shop-item-title">${product.title}</span>
+          <img class="shop-item-image" src="${product.img}" />
+          <div class="shop-item-details">
+            <span class="shop-item-price">${product.price} $</span>
+            <button class="btn btn-primary shop-item-button" type="button">
+              ADD TO CART
+            </button>
+          </div>
+        </div>`;
+
+  shopItemContainer.insertAdjacentHTML("beforeend", shopItemEl);
+});
