@@ -4,48 +4,56 @@ let allProducts = [
     title: "Caramel",
     price: 14.2,
     img: "images/caramel-ice.png",
+    count: 1,
   },
   {
     id: 2,
     title: "Vanilla",
     price: 10.5,
     img: "images/vanilla.png",
+    count: 1,
   },
   {
     id: 3,
     title: "Blue berry",
     price: 10.28,
     img: "images/blueberry.png",
+    count: 1,
   },
   {
     id: 4,
     title: "Chocolate",
     price: 9.58,
     img: "images/chocolate.png",
+    count: 1,
   },
   {
     id: 5,
     title: "Coconut",
     price: 11.27,
     img: "images/coconut.png",
+    count: 1,
   },
   {
     id: 6,
     title: "Strawberry",
     price: 12.36,
     img: "images/strawberry.png",
+    count: 1,
   },
   {
     id: 7,
     title: "Oreo",
     price: 11.25,
     img: "images/oreo.png",
+    count: 1,
   },
   {
     id: 8,
     title: "Banana",
     price: 17.89,
     img: "images/Banana.png",
+    count: 1,
   },
 ];
 
@@ -53,6 +61,8 @@ let $ = document;
 let userBasket = [];
 const shopItemContainer = $.querySelector(".shop-items");
 const cartItemsRow = $.querySelector(".cart-items");
+const purchaseBtn = $.querySelector("#purchase");
+const totalPriceEl = $.querySelector(".cart-total-title");
 
 allProducts.forEach((product) => {
   let shopItemEl = `<div class="shop-item"><span class="shop-item-title">${product.title}</span>
@@ -74,6 +84,7 @@ function addProductToBasket(productId) {
   });
   userBasket.push(mainProduct);
   cartItemCreator(userBasket);
+  calcCartValue(userBasket);
 }
 
 function cartItemCreator(cartArray) {
@@ -90,7 +101,7 @@ function cartItemCreator(cartArray) {
           </div>
           <span class="cart-price cart-column">${product.price} $</span>
           <div class="cart-quantity cart-column">
-            <input class="cart-quantity-input" type="number" value="1" />
+            <input class="cart-quantity-input" type="number" value=${product.count} />
             <button class="btn btn-danger" type="button" onclick="removeCartRow(${product.id})">REMOVE</button>
           </div></div>`;
 
@@ -105,4 +116,18 @@ function removeCartRow(productId) {
     return product.id !== productId;
   });
   cartItemCreator(userBasket);
+}
+
+purchaseBtn.addEventListener("click", () => {
+  userBasket = [];
+  cartItemCreator(userBasket);
+});
+
+function calcCartValue(userBasketArr) {
+  let totalValue = 0;
+  userBasketArr.forEach((product) => {
+    totalValue += product.count * product.price;
+  });
+
+  totalPriceEl.textContent = `${totalValue}$`;
 }
