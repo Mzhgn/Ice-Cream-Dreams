@@ -123,11 +123,13 @@ function removeCartRow(productId) {
     return product.id !== productId;
   });
   cartItemCreator(userBasket);
+  calcCartValue(userBasket);
 }
 
 purchaseBtn.addEventListener("click", () => {
   userBasket = [];
   cartItemCreator(userBasket);
+  calcCartValue(userBasket);
 });
 
 function calcCartValue(userBasketArr) {
