@@ -2,56 +2,56 @@ let allProducts = [
   {
     id: 1,
     title: "Caramel",
-    price: 14.2,
+    price: 14,
     img: "images/caramel-ice.png",
     count: 1,
   },
   {
     id: 2,
     title: "Vanilla",
-    price: 10.5,
+    price: 10,
     img: "images/vanilla.png",
     count: 1,
   },
   {
     id: 3,
     title: "Blue berry",
-    price: 10.28,
+    price: 10,
     img: "images/blueberry.png",
     count: 1,
   },
   {
     id: 4,
     title: "Chocolate",
-    price: 9.58,
+    price: 9,
     img: "images/chocolate.png",
     count: 1,
   },
   {
     id: 5,
     title: "Coconut",
-    price: 11.27,
+    price: 11,
     img: "images/coconut.png",
     count: 1,
   },
   {
     id: 6,
     title: "Strawberry",
-    price: 12.36,
+    price: 12,
     img: "images/strawberry.png",
     count: 1,
   },
   {
     id: 7,
     title: "Oreo",
-    price: 11.25,
+    price: 11,
     img: "images/oreo.png",
     count: 1,
   },
   {
     id: 8,
     title: "Banana",
-    price: 17.89,
+    price: 17,
     img: "images/Banana.png",
     count: 1,
   },
@@ -79,10 +79,19 @@ allProducts.forEach((product) => {
 });
 
 function addProductToBasket(productId) {
-  let mainProduct = allProducts.find(function (product) {
-    return product.id === productId;
+  let productExists = userBasket.some((product) => {
+    if (product.id === productId) {
+      product.count++;
+      return true;
+    }
+    return false;
   });
-  userBasket.push(mainProduct);
+  if (!productExists) {
+    let mainProduct = allProducts.find((product) => {
+      return product.id === productId;
+    });
+    userBasket.push(mainProduct);
+  }
   cartItemCreator(userBasket);
   calcCartValue(userBasket);
 }
@@ -101,13 +110,11 @@ function cartItemCreator(cartArray) {
           </div>
           <span class="cart-price cart-column">${product.price} $</span>
           <div class="cart-quantity cart-column">
-            <input class="cart-quantity-input" type="number" value=${product.count} />
+            <input class="cart-quantity-input" type="number" value=${product.count} onchange="updateItemCount(${product.id}, this.value)"  />
             <button class="btn btn-danger" type="button" onclick="removeCartRow(${product.id})">REMOVE</button>
           </div></div>`;
 
-    cartItemsRow.insertAdjacentHTML("afterbegin", basketEl);
-
-    // console.log(basketEl);
+    cartItemsRow.insertAdjacentHTML("beforeend", basketEl);
   });
 }
 
@@ -130,4 +137,14 @@ function calcCartValue(userBasketArr) {
   });
 
   totalPriceEl.textContent = `${totalValue}$`;
+}
+
+function updateItemCount(productId, countValue) {
+  console.log(productId, countValue);
+  userBasket.forEach((product) => {
+    if (product.id === productId) {
+      product.count = countValue;
+    }
+  });
+  calcCartValue(userBasket);
 }
