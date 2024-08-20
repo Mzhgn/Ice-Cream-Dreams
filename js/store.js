@@ -91,11 +91,18 @@ function cartItemCreator(cartArray) {
           <span class="cart-price cart-column">${product.price} $</span>
           <div class="cart-quantity cart-column">
             <input class="cart-quantity-input" type="number" value="1" />
-            <button class="btn btn-danger" type="button">REMOVE</button>
+            <button class="btn btn-danger" type="button" onclick="removeCartRow(${product.id})">REMOVE</button>
           </div></div>`;
 
     cartItemsRow.insertAdjacentHTML("afterbegin", basketEl);
 
     // console.log(basketEl);
   });
+}
+
+function removeCartRow(productId) {
+  userBasket = userBasket.filter((product) => {
+    return product.id !== productId;
+  });
+  cartItemCreator(userBasket);
 }
