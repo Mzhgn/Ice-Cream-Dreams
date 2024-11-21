@@ -4,7 +4,7 @@
 
 ## Description:
 
-<p>This project is a simple shopping cart designed to practice JavaScript, HTML, and CSS skills. The website simulates an online ice cream shop where users can browse a variety of delicious ice cream flavors, customize their orders, and make purchases. ;)</p>
+<p>This project is a simple shopping cart designed to practice JavaScript, HTML, CSS ,and Javascript skills. The website simulates an online ice cream shop where users can browse a variety of delicious ice cream flavors, customize their orders, and make purchases. ;)</p>
 
 ## Used Languages:
 
